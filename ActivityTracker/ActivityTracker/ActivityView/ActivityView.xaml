@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="ActivityTracker.ActivityView.ActivityView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ActivityTracker.ActivityView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="*" ></ColumnDefinition>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Label x:Name="labelActivity" Content="Activity" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="1">
+                <TextBox x:Name="textboxActivity" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="23"  TextWrapping="NoWrap" Text="" />
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="2">
+                <Button x:Name="buttonAddActivity" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="23" Width="35"/>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="10,0,10,0">
+            <DataGrid x:Name="dataGridActivities" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="10,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*" ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0">
+                <ComboBox x:Name="comboBoxTimespan" HorizontalAlignment="Left" VerticalAlignment="Center" Width="46"/>
+                <Button x:Name="buttonStartTracking" Content="Start" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40"/>
+                <Button x:Name="buttonStopTracking" Content="Stop" HorizontalAlignment="Right" VerticalAlignment="Center" Width="40"/>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Button x:Name="buttonClose" Content="Close" HorizontalAlignment="Right" VerticalAlignment="Center" Width="40"/>
+            </Grid>
+        </Grid>
+            
+    </Grid>
+</UserControl>
