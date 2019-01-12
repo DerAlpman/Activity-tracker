@@ -4,16 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ActivityTracker"
-        xmlns:controls="clr-namespace:ActivityTracker.ActivityView"
+        xmlns:controls="clr-namespace:ActivityTracker.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="440" Width="400" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <controls:ActivityView />
+            <controls:ActivityInputControlsView />
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <controls:ActivitiesView />
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <controls:ActivityTimerControlsView />
         </Grid>
     </Grid>
 </Window>

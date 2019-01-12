@@ -57,7 +57,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="ActivityView\ActivityView.xaml">
+    <Page Include="Views\ActivitiesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ActivityInputControlsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ActivityTimerControlsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -65,10 +73,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="ActivityModel\ActivityModel.cs" />
-    <Compile Include="ActivityViewModel\ActivityViewModel.cs" />
-    <Compile Include="ActivityView\ActivityView.xaml.cs">
-      <DependentUpon>ActivityView.xaml</DependentUpon>
+    <Compile Include="Models\ActivityModel.cs" />
+    <Compile Include="ViewModels\ActivitiesViewModel.cs" />
+    <Compile Include="Views\ActivitiesView.xaml.cs">
+      <DependentUpon>ActivitiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ActivityInputControlsView.xaml.cs">
+      <DependentUpon>ActivityInputControlsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ActivityTimerControlsView.xaml.cs">
+      <DependentUpon>ActivityTimerControlsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ActivityTracker.ActivityModel
+namespace ActivityTracker.Models
 {
     internal class ActivityModel
     {
