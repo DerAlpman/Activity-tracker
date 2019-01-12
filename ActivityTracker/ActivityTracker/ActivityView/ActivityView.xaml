@@ -31,7 +31,9 @@
         </Grid>
 
         <Grid Grid.Row="1" Margin="10,0,10,0">
-            <DataGrid x:Name="dataGridActivities" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"/>
+            <DataGrid x:Name="dataGridActivities" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"
+                      SelectionMode="Single"
+                      IsReadOnly="True"/>
         </Grid>
 
         <Grid Grid.Row="2" Margin="10,0,10,0">
