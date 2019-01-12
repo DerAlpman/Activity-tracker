@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ActivityTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="440" Width="400" ResizeMode="NoResize">
     <Grid>
-        
+        <Label x:Name="labelActivity" Content="Activity" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textboxActivity" HorizontalAlignment="Left" Height="23" Margin="60,20,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
+        <Button x:Name="buttonAddActivity" Content="Add" HorizontalAlignment="Right" Height="23" Margin="0,20,10,0" VerticalAlignment="Top" Width="40"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Stretch" Height="300" Margin="10,60,10,0" VerticalAlignment="Top"/>
+        <Button x:Name="buttonStartTracking" Content="Start" HorizontalAlignment="Left" Margin="70,370,0,10" VerticalAlignment="Bottom" Width="40"/>
+        <Button x:Name="buttonStopTracking" Content="Stop" HorizontalAlignment="Left" Margin="120,370,0,10" VerticalAlignment="Bottom" Width="40"/>
+        <Button x:Name="buttonClose" Content="Close" HorizontalAlignment="Right" Margin="0,370,10,10" VerticalAlignment="Bottom" Width="40"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,370,0,10" VerticalAlignment="Bottom" Width="46"/>
     </Grid>
 </Window>
