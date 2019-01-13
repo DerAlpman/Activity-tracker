@@ -1,8 +1,9 @@
 ﻿using System;
+using Components.ActivityTracker.Interfaces;
 
 namespace ActivityTracker.Models
 {
-    internal class ActivityModel
+    internal class ActivityModel : IActivityModel
     {
         #region FIELDS
 

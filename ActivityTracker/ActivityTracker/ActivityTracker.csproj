@@ -119,6 +119,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Components.ActivityTracker\Components.ActivityTracker.csproj">
+      <Project>{f237821d-cbe1-4479-8ee7-d8a429363fd0}</Project>
+      <Name>Components.ActivityTracker</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
