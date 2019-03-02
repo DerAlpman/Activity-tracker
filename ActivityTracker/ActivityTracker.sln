@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityTracker", "Activity
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Components.ActivityTracker", "Components.ActivityTracker\Components.ActivityTracker.csproj", "{F237821D-CBE1-4479-8EE7-D8A429363FD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.ActivityTracker", "Library.ActivityTracker\Library.ActivityTracker.csproj", "{128C9E7A-4A7C-4229-9240-64AAE1C28349}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F237821D-CBE1-4479-8EE7-D8A429363FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F237821D-CBE1-4479-8EE7-D8A429363FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F237821D-CBE1-4479-8EE7-D8A429363FD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{128C9E7A-4A7C-4229-9240-64AAE1C28349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{128C9E7A-4A7C-4229-9240-64AAE1C28349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{128C9E7A-4A7C-4229-9240-64AAE1C28349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{128C9E7A-4A7C-4229-9240-64AAE1C28349}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -71,8 +71,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Models\ActivityModel.cs" />
-    <Compile Include="ViewModels\ActivitiesViewModel.cs" />
     <Compile Include="Views\ActivitiesView.xaml.cs">
       <DependentUpon>ActivitiesView.xaml</DependentUpon>
     </Compile>
@@ -118,10 +116,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Components.ActivityTracker\Components.ActivityTracker.csproj">
-      <Project>{f237821d-cbe1-4479-8ee7-d8a429363fd0}</Project>
-      <Name>Components.ActivityTracker</Name>
-      <Private>True</Private>
+    <ProjectReference Include="..\Library.ActivityTracker\Library.ActivityTracker.csproj">
+      <Project>{128c9e7a-4a7c-4229-9240-64aae1c28349}</Project>
+      <Name>Library.ActivityTracker</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

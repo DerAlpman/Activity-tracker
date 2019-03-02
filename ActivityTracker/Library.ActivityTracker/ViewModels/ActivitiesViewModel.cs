@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using ActivityTracker.Models;
 using Components.ActivityTracker.Interfaces;
+using Library.ActivityTracker.Models;
 
-namespace ActivityTracker.ViewModels
+namespace Library.ActivityTracker.ViewModels
 {
-    internal class ActivitiesViewModel
+    public class ActivitiesViewModel
     {
         #region FIELDS
 
@@ -21,7 +21,7 @@ namespace ActivityTracker.ViewModels
 
         #region PROPERTIES
 
-        public ObservableCollection<IActivityModel> Activities { get => _Activities; set => _Activities = value; }
+        public ObservableCollection<IActivityModel> Activities { get => _Activities; }
 
         #endregion
 

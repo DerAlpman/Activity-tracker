@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using ActivityTracker.ViewModels;
 
 namespace ActivityTracker.Views
 {
@@ -11,7 +10,6 @@ namespace ActivityTracker.Views
         public ActivitiesView()
         {
             InitializeComponent();
-            DataContext = new ActivitiesViewModel();
         }
     }
 }
