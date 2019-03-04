@@ -43,6 +43,7 @@
     <Compile Include="Models\ActivityModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ActivitiesViewModel.cs" />
+    <Compile Include="ViewModels\ActivityInputControlsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Components.ActivityTracker\Components.ActivityTracker.csproj">
