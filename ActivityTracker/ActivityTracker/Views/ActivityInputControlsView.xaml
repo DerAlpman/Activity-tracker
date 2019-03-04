@@ -23,7 +23,7 @@
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1">
                 <TextBox x:Name="textboxActivity" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="23"  TextWrapping="NoWrap"
-                         Text="{Binding Text, Mode=OneWay}" />
+                         Text="{Binding Text, Mode=TwoWay}" />
             </Grid>
             <Grid Grid.Row="0" Grid.Column="2">
                 <Button x:Name="buttonAddActivity" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="23" Width="35"/>
