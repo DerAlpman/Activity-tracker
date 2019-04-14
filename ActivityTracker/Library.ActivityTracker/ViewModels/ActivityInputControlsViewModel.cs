@@ -6,6 +6,7 @@ using System.Reflection;
 
 namespace Library.ActivityTracker.ViewModels
 {
+#warning Not used, yet
     public class ActivityInputControlsViewModel : IDataErrorInfo
     {
         #region FIELDS

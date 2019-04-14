@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ActivityTracker.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             DataContext="{Binding Source={StaticResource ActivityInputControlsViewModel}}">
+             DataContext="{Binding Source={StaticResource ActivitiesViewModel}}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
@@ -22,11 +22,15 @@
                 <Label x:Name="labelActivity" Content="Activity" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1">
-                <TextBox x:Name="textboxActivity" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="23"  TextWrapping="NoWrap"
-                         Text="{Binding Text, Mode=TwoWay}" />
+                <TextBox x:Name="textboxActivity" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="23" TextWrapping="NoWrap">
+                    <TextBox.Text>
+                        <Binding Path="Text" Mode="TwoWay" ValidatesOnDataErrors="True" NotifyOnValidationError="True"
+                             UpdateSourceTrigger="PropertyChanged" />
+                    </TextBox.Text>
+                </TextBox>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="2">
-                <Button x:Name="buttonAddActivity" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="23" Width="35"/>
+                <Button x:Name="buttonAddActivity" Command="{Binding SubmitActivity, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="23" Width="35"/>
             </Grid>
         </Grid>
     </Grid>
