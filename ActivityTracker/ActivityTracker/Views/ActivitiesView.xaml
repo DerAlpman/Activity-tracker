@@ -7,16 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding Source={StaticResource ActivitiesViewModel}}">
-             
-                 <!-- <UserControl.Resources> -->
-        <!-- <ResourceDictionary> -->
-            <!-- <ResourceDictionary.MergedDictionaries> -->
-                <!-- <ResourceDictionary Source="pack://application:,,,/MRUTaskWorkPlugIn;Component/RwoFeatures/XamlStyles/StyleResources.xaml" /> -->
-                <!-- <ResourceDictionary Source="pack://application:,,,/MRUTaskWorkPlugIn;Component/RwoFeatures/XamlDataTemplates/MeterSurveyTemplate.xaml" /> -->
-            <!-- </ResourceDictionary.MergedDictionaries> -->
-        <!-- </ResourceDictionary> -->
-    <!-- </UserControl.Resources> -->
-             
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>

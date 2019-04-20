@@ -20,7 +20,7 @@ namespace Library.ActivityTracker.ViewModels
         private Dictionary<string, string> _Errors { get; } = new Dictionary<string, string>();
         private static List<PropertyInfo> _PropertyInfos;
 
-        public DelegateCommand SubmitActivity { get; set; }
+        public DelegateCommand AddActivity { get; set; }
 
         #endregion
 
@@ -28,17 +28,17 @@ namespace Library.ActivityTracker.ViewModels
         {
             _Activities = new ObservableCollection<IActivityModel>();
 
-            SubmitActivity = new DelegateCommand(ExecuteSubmitActivity, CanExecuteSubmitActivity);
+            AddActivity = new DelegateCommand(ExecuteAddActivity, CanExecuteAddActivity);
 
             LoadActivities();
         }
 
-        private void ExecuteSubmitActivity()
+        private void ExecuteAddActivity()
         {
             Activities.Add(new ActivityModel(DateTime.Now, this.Text));
         }
 
-        private bool CanExecuteSubmitActivity()
+        private bool CanExecuteAddActivity()
         {
             return !_Errors.Any();
         }
@@ -55,7 +55,7 @@ namespace Library.ActivityTracker.ViewModels
             set
             {
                 _Text = value;
-                SubmitActivity.RaiseCanExecuteChanged();
+                AddActivity.RaiseCanExecuteChanged();
             }
         }
 
