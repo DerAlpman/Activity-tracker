@@ -22,7 +22,12 @@ namespace Library.ActivityTracker.ViewModels
         private Dictionary<string, string> _Errors { get; } = new Dictionary<string, string>();
         private static List<PropertyInfo> _PropertyInfos;
 
+        #endregion
+
+        #region COMMANDS
+
         public DelegateCommand AddActivity { get; set; }
+        public DelegateCommand SaveActivities { get; set; }
 
         #endregion
 
@@ -31,18 +36,30 @@ namespace Library.ActivityTracker.ViewModels
             _Activities = new ObservableCollection<IActivityModel>();
 
             AddActivity = new DelegateCommand(ExecuteAddActivity, CanExecuteAddActivity);
+            SaveActivities = new DelegateCommand(ExecuteSaveActivities, CanExecuteSaveActivities);
 
             //LoadActivities();
+        }
+
+        private void ExecuteSaveActivities()
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool CanExecuteSaveActivities()
+        {
+            return !_Errors.Any(e => e.Key.Equals(nameof(Activities)));
         }
 
         private void ExecuteAddActivity()
         {
             Activities.Add(new ActivityModel(DateTime.Now, this.Text));
+            SaveActivities.RaiseCanExecuteChanged();
         }
 
         private bool CanExecuteAddActivity()
         {
-            return !_Errors.Any();
+            return !_Errors.Any(e => e.Key.Equals(nameof(Text)));
         }
 
         #region PROPERTIES

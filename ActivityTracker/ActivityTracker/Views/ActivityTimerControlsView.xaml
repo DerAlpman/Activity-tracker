@@ -25,7 +25,9 @@
             </Grid>
 
             <Grid Grid.Row="0" Grid.Column="1">
-                <Button x:Name="buttonSave" Content="Save" HorizontalAlignment="Right" VerticalAlignment="Center" Width="40"/>
+                <Button x:Name="buttonSave" Content="Save"
+                        Command="{Binding SaveActivities, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                        HorizontalAlignment="Right" VerticalAlignment="Center" Width="40"/>
             </Grid>
         </Grid>
 
