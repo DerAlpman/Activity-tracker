@@ -29,6 +29,7 @@ namespace Library.ActivityTracker.ViewModels
             _Activities = new ObservableCollection<IActivityModel>();
 
             SubmitActivity = new DelegateCommand(ExecuteSubmitActivity, CanExecuteSubmitActivity);
+
             LoadActivities();
         }
 
