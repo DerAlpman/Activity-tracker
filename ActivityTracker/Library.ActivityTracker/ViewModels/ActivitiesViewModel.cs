@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using Components.ActivityTracker.Interfaces;
 using Library.ActivityTracker.Models;
+using Library.ActivityTracker.Validation;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -30,7 +32,7 @@ namespace Library.ActivityTracker.ViewModels
 
             AddActivity = new DelegateCommand(ExecuteAddActivity, CanExecuteAddActivity);
 
-            LoadActivities();
+            //LoadActivities();
         }
 
         private void ExecuteAddActivity()
@@ -45,6 +47,7 @@ namespace Library.ActivityTracker.ViewModels
 
         #region PROPERTIES
 
+        [EnsureMinimumElements(1, ErrorMessage = "Es muss mindestens eine Aktivität in der Liste vorhanden sein.")]
         public ObservableCollection<IActivityModel> Activities { get => _Activities; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Es ist keine Aktivität eingetragen.")]
@@ -67,7 +70,9 @@ namespace Library.ActivityTracker.ViewModels
                 {
                     _PropertyInfos = GetType()
                         .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                        .Where(prop => prop.IsDefined(typeof(RequiredAttribute), true) || prop.IsDefined(typeof(MaxLengthAttribute), true))
+                        .Where(prop => prop.IsDefined(typeof(RequiredAttribute), true)
+                        || prop.IsDefined(typeof(MaxLengthAttribute), true)
+                        || prop.IsDefined(typeof(EnsureMinimumElementsAttribute), true))
                         .ToList();
                 }
                 return _PropertyInfos;
@@ -111,6 +116,7 @@ namespace Library.ActivityTracker.ViewModels
                     var currentValue = prop.GetValue(this);
                     var reqAttr = prop.GetCustomAttribute<RequiredAttribute>();
                     var maxLenAttr = prop.GetCustomAttribute<MaxLengthAttribute>();
+                    var ensureMinLenAttr = prop.GetCustomAttribute<EnsureMinimumElementsAttribute>();
 
                     if (reqAttr != null)
                     {
@@ -125,6 +131,19 @@ namespace Library.ActivityTracker.ViewModels
                         if ((currentValue?.ToString() ?? string.Empty).Length > maxLenAttr.Length)
                         {
                             _Errors.Add(prop.Name, maxLenAttr.ErrorMessage);
+                        }
+                    }
+
+                    if (ensureMinLenAttr != null && currentValue != null)
+                    {
+                        var list = currentValue as IList;
+
+                        if (list != null)
+                        {
+                            if (list.Count < ensureMinLenAttr.MinElements)
+                            {
+                                _Errors.Add(prop.Name, ensureMinLenAttr.ErrorMessage);
+                            }
                         }
                     }
                 });

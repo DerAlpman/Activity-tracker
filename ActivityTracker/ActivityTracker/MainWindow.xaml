@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ActivityTracker"
         xmlns:controls="clr-namespace:ActivityTracker.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="440" Width="400" ResizeMode="NoResize">
+        Title="Track your activities!" Height="440" Width="400" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
