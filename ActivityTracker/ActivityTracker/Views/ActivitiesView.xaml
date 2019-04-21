@@ -21,11 +21,11 @@
                       SelectionUnit="FullRow"
                       CanUserReorderColumns="False"
                       CanUserSortColumns="False"
-                      CanUserResizeColumns="False"
+                      CanUserResizeColumns="True"
                       CanUserResizeRows="False"
                       IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Timestamp" Binding="{Binding TimeStamp, StringFormat=\{0:dd.MM.yyyy H:mm\}}" />
+                    <DataGridTextColumn Header="Timestamp" Binding="{Binding TimeStamp, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}}" />
                     <DataGridTextColumn Header="Activity" Binding="{Binding Text}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>

@@ -40,16 +40,19 @@ namespace ActivityTracker.ViewModels
             AddActivity = new DelegateCommand(ExecuteAddActivity, CanExecuteAddActivity);
             SaveActivities = new DelegateCommand(ExecuteSaveActivities, CanExecuteSaveActivities);
 
-            //LoadActivities();
+            LoadActivities();
         }
 
         #endregion
 
         private void ExecuteSaveActivities()
         {
-            //ActivitiesWriter.WriteActivities(Activities, AppSettings.OUTPUT_PATH_KEY);
-
-            Activities.Clear();
+            if (ActivitiesWriter.TryWriteActivitiesToFile(Activities))
+            {
+                Activities.Clear();
+                CollectErrors();
+                SaveActivities.RaiseCanExecuteChanged();
+            }
         }
 
         private bool CanExecuteSaveActivities()
@@ -113,6 +116,10 @@ namespace ActivityTracker.ViewModels
             _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 8, 20, 0), "Issue 5461"));
             _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 8, 40, 0), "Issue 5461"));
             _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 9, 00, 0), "Sprintretrospektive"));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 9, 20, 0), "Sprintretrospektive"));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 9, 40, 0), "Sprintretrospektive"));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 10, 00, 0), "Issue 5461"));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 10, 20, 0), "Sprintretrospektive"));
         }
 
         #endregion  
