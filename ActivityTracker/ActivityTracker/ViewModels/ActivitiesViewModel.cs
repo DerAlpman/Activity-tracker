@@ -42,6 +42,27 @@ namespace ActivityTracker.ViewModels
             SaveActivities = new DelegateCommand(ExecuteSaveActivities, CanExecuteSaveActivities);
 
             _TimeStamp = DateTime.Now;
+
+#if DEBUG
+            LoadActivities();
+#endif
+        }
+
+        private void LoadActivities()
+        {
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 8, 0, 0), "541", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 8, 20, 0), "541", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 8, 40, 0), "541", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 9, 0, 0), "541", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 9, 20, 0), "111", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 9, 40, 0), "111", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 10, 0, 0), "541", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 10, 20, 0), "134", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 10, 40, 0), "134", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 11, 20, 0), "111", new TimeSpan(0, 40, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 0, 0), "134", new TimeSpan(0, 40, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 20, 0), "134", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 40, 0), "134", new TimeSpan(0, 20, 0)));
         }
 
         #endregion

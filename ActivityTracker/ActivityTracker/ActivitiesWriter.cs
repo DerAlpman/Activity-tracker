@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Components.ActivityTracker.Interfaces;
 
@@ -34,12 +35,25 @@ namespace ActivityTracker
         {
             using (StreamWriter sw = new StreamWriter(output))
             {
+                sw.Write("Chronologie:");
+                sw.Write("------------");
                 for (int i = 0; i < activities.Count; i++)
                 {
-                    sw.WriteLine(String.Format("{0}: {1} ({2})",
+                    sw.WriteLine(String.Format("{0}: {1} ({2} Minuten)",
                         activities[i].TimeStamp.ToString(CultureInfo.CurrentCulture),
                         activities[i].Text,
-                        activities[i].TimeSpan.TotalMinutes));
+                        activities[i].TimeSpan.TotalMinutes.ToString("F0")));
+                }
+
+                sw.WriteLine();
+                sw.WriteLine();
+
+                sw.WriteLine("Gruppiert:");
+                sw.WriteLine("----------");
+                foreach (var group in activities.GroupBy(a => a.Text))
+                {
+                    var groupDuration = group.Sum(am => am.TimeSpan.TotalHours);
+                    sw.WriteLine(String.Format("{0}: {1} Stunden", group.Key, groupDuration.ToString("F2")));
                 }
             }
         }
