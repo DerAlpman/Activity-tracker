@@ -36,9 +36,10 @@ namespace ActivityTracker
             {
                 for (int i = 0; i < activities.Count; i++)
                 {
-                    sw.WriteLine(String.Format("{0}: {1}",
+                    sw.WriteLine(String.Format("{0}: {1} ({2})",
                         activities[i].TimeStamp.ToString(CultureInfo.CurrentCulture),
-                        activities[i].Text));
+                        activities[i].Text,
+                        activities[i].TimeSpan.TotalMinutes));
                 }
             }
         }

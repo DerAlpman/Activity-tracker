@@ -21,6 +21,7 @@ namespace ActivityTracker.ViewModels
         private ObservableCollection<IActivityModel> _Activities; private string _Text;
         private Dictionary<string, string> _Errors { get; } = new Dictionary<string, string>();
         private static List<PropertyInfo> _PropertyInfos;
+        private DateTime _TimeStamp;
 
         #endregion
 
@@ -40,7 +41,7 @@ namespace ActivityTracker.ViewModels
             AddActivity = new DelegateCommand(ExecuteAddActivity, CanExecuteAddActivity);
             SaveActivities = new DelegateCommand(ExecuteSaveActivities, CanExecuteSaveActivities);
 
-            LoadActivities();
+            _TimeStamp = DateTime.Now;
         }
 
         #endregion
@@ -50,8 +51,7 @@ namespace ActivityTracker.ViewModels
             if (ActivitiesWriter.TryWriteActivitiesToFile(Activities))
             {
                 Activities.Clear();
-                CollectErrors();
-                SaveActivities.RaiseCanExecuteChanged();
+                UpdateSaveActivitiesCommand();
             }
         }
 
@@ -62,7 +62,26 @@ namespace ActivityTracker.ViewModels
 
         private void ExecuteAddActivity()
         {
-            Activities.Add(new ActivityModel(DateTime.Now, this.Text));
+            TimeSpan duration = GetDurationAndUpdateTimeStamp();
+
+            Activities.Add(new ActivityModel(_TimeStamp, this.Text, duration));
+
+            UpdateSaveActivitiesCommand();
+        }
+
+        private TimeSpan GetDurationAndUpdateTimeStamp()
+        {
+            DateTime now = DateTime.Now;
+
+            TimeSpan duration = now - _TimeStamp;
+
+            _TimeStamp = now;
+
+            return duration;
+        }
+
+        private void UpdateSaveActivitiesCommand()
+        {
             CollectErrors();
             SaveActivities.RaiseCanExecuteChanged();
         }
@@ -107,22 +126,6 @@ namespace ActivityTracker.ViewModels
         }
 
         #endregion
-
-        #region METHODS
-
-        private void LoadActivities()
-        {
-            _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 8, 0, 0), "Issue 5461"));
-            _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 8, 20, 0), "Issue 5461"));
-            _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 8, 40, 0), "Issue 5461"));
-            _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 9, 00, 0), "Sprintretrospektive"));
-            _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 9, 20, 0), "Sprintretrospektive"));
-            _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 9, 40, 0), "Sprintretrospektive"));
-            _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 10, 00, 0), "Issue 5461"));
-            _Activities.Add(new ActivityModel(new DateTime(2019, 1, 22, 10, 20, 0), "Sprintretrospektive"));
-        }
-
-        #endregion  
 
         #region IDataErrorInfo
 

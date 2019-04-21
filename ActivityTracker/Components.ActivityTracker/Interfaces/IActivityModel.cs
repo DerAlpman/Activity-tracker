@@ -4,7 +4,8 @@ namespace Components.ActivityTracker.Interfaces
 {
     public interface IActivityModel
     {
-        string Text { get; set; }
-        DateTime TimeStamp { get; set; }
+        string Text { get; }
+        DateTime TimeStamp { get; }
+        TimeSpan TimeSpan { get; }
     }
 }
