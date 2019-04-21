@@ -43,7 +43,9 @@ namespace Library.ActivityTracker.ViewModels
 
         private void ExecuteSaveActivities()
         {
-            throw new NotImplementedException();
+            ActivitiesWriter.WriteActivities(Activities, AppSettings.OUTPUT_PATH_KEY);
+
+            Activities.Clear();
         }
 
         private bool CanExecuteSaveActivities()
@@ -54,6 +56,7 @@ namespace Library.ActivityTracker.ViewModels
         private void ExecuteAddActivity()
         {
             Activities.Add(new ActivityModel(DateTime.Now, this.Text));
+            CollectErrors();
             SaveActivities.RaiseCanExecuteChanged();
         }
 
