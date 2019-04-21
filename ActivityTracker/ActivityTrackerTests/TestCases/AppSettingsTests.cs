@@ -1,4 +1,5 @@
-﻿using ActivityTracker;
+﻿using System.Configuration;
+using ActivityTracker;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ActivityTrackerTests.TestCases
