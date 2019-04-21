@@ -56,9 +56,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Library.ActivityTracker\Library.ActivityTracker.csproj">
-      <Project>{128C9E7A-4A7C-4229-9240-64AAE1C28349}</Project>
-      <Name>Library.ActivityTracker</Name>
+    <ProjectReference Include="..\ActivityTracker\ActivityTracker.csproj">
+      <Project>{CB5D7AD1-161E-402A-9A8C-67D1A3321F38}</Project>
+      <Name>ActivityTracker</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

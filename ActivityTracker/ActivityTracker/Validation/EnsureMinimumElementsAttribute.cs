@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.ComponentModel.DataAnnotations;
 
-namespace Library.ActivityTracker.Validation
+namespace ActivityTracker.Validation
 {
     internal class EnsureMinimumElementsAttribute : ValidationAttribute
     {

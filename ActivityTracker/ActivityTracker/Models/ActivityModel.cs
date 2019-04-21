@@ -1,7 +1,7 @@
 ﻿using System;
 using Components.ActivityTracker.Interfaces;
 
-namespace Library.ActivityTracker.Models
+namespace ActivityTracker.Models
 {
     internal class ActivityModel : IActivityModel
     {

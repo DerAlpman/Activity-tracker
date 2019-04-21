@@ -6,13 +6,13 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using ActivityTracker.Models;
+using ActivityTracker.Validation;
 using Components.ActivityTracker.Interfaces;
-using Library.ActivityTracker.Models;
-using Library.ActivityTracker.Validation;
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace Library.ActivityTracker.ViewModels
+namespace ActivityTracker.ViewModels
 {
     public class ActivitiesViewModel : BindableBase, IDataErrorInfo
     {
@@ -31,6 +31,8 @@ namespace Library.ActivityTracker.ViewModels
 
         #endregion
 
+        #region CONSTRUCTOR
+
         public ActivitiesViewModel()
         {
             _Activities = new ObservableCollection<IActivityModel>();
@@ -41,9 +43,11 @@ namespace Library.ActivityTracker.ViewModels
             //LoadActivities();
         }
 
+        #endregion
+
         private void ExecuteSaveActivities()
         {
-            ActivitiesWriter.WriteActivities(Activities, AppSettings.OUTPUT_PATH_KEY);
+            //ActivitiesWriter.WriteActivities(Activities, AppSettings.OUTPUT_PATH_KEY);
 
             Activities.Clear();
         }

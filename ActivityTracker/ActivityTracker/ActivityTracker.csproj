@@ -45,6 +45,7 @@
       <HintPath>..\packages\Prism.Wpf.7.1.0.431\lib\net45\Prism.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -84,8 +85,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="ActivitiesWriter.cs" />
     <Compile Include="AppSettings.cs" />
+    <Compile Include="Models\ActivityModel.cs" />
     <Compile Include="Properties\AssemblyInfoEx.cs" />
+    <Compile Include="Validation\EnsureMinimumElementsAttribute.cs" />
+    <Compile Include="ViewModels\ActivitiesViewModel.cs" />
     <Compile Include="Views\ActivitiesView.xaml.cs">
       <DependentUpon>ActivitiesView.xaml</DependentUpon>
     </Compile>
@@ -136,9 +141,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Library.ActivityTracker\Library.ActivityTracker.csproj">
-      <Project>{128c9e7a-4a7c-4229-9240-64aae1c28349}</Project>
-      <Name>Library.ActivityTracker</Name>
+    <ProjectReference Include="..\Components.ActivityTracker\Components.ActivityTracker.csproj">
+      <Project>{F237821D-CBE1-4479-8EE7-D8A429363FD0}</Project>
+      <Name>Components.ActivityTracker</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

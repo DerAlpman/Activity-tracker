@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Components.ActivityTracker.Interfaces;
 
-namespace Library.ActivityTracker
+namespace ActivityTracker
 {
     internal static class ActivitiesWriter
     {
