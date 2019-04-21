@@ -11,7 +11,7 @@ namespace ActivityTracker
     {
         #region METHODS
 
-        internal static bool TryWriteActivitiesToFile(IEnumerable<IActivityModel> activities)
+        internal static bool TryWriteActivitiesToFile(IList<IActivityModel> activities)
         {
             if (!AppSettings.TryGetSetting(AppSettings.OUTPUT_PATH_KEY, out string filePath))
             {
@@ -23,22 +23,31 @@ namespace ActivityTracker
                 return false;
             }
 
-            string fileName = GetFileName();
+            string fileName = GetAbsoluteFileName(filePath);
 
-            using (StreamWriter sw = new StreamWriter(Path.Combine(filePath, fileName + ".activities")))
-            {
-                foreach (var item in activities)
-                {
-                    sw.WriteLine(String.Format("{0}: {1}", item.TimeStamp.ToString(CultureInfo.CurrentCulture), item.Text));
-                }
-            }
+            WriteActivities(activities, fileName);
 
             return true;
         }
 
-        private static string GetFileName()
+        private static void WriteActivities(IList<IActivityModel> activities, string output)
         {
-            return Regex.Replace(DateTime.Now.ToString(), @"[\.:\s]", "");
+            using (StreamWriter sw = new StreamWriter(output))
+            {
+                for (int i = 0; i < activities.Count; i++)
+                {
+                    sw.WriteLine(String.Format("{0}: {1}",
+                        activities[i].TimeStamp.ToString(CultureInfo.CurrentCulture),
+                        activities[i].Text));
+                }
+            }
+        }
+
+        private static string GetAbsoluteFileName(string filePath)
+        {
+            string fileName = Regex.Replace(DateTime.Now.ToString(), @"[\.:\s]", "");
+
+            return Path.Combine(filePath, fileName + ".activities");
         }
 
         #endregion
