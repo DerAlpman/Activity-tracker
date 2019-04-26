@@ -35,8 +35,8 @@ namespace ActivityTracker
         {
             using (StreamWriter sw = new StreamWriter(output))
             {
-                sw.Write("Chronologie:");
-                sw.Write("------------");
+                sw.WriteLine("Chronologie:");
+                sw.WriteLine("------------");
                 for (int i = 0; i < activities.Count; i++)
                 {
                     sw.WriteLine(String.Format("{0}: {1} ({2} Minuten)",
