@@ -19,6 +19,7 @@
                       ItemsSource="{Binding Activities}"
                       SelectionMode="Single"
                       SelectionUnit="FullRow"
+                      SelectedItem="{Binding Path=SelectedRecord, Mode=TwoWay}"
                       CanUserReorderColumns="False"
                       CanUserSortColumns="False"
                       CanUserResizeColumns="True"
@@ -28,6 +29,11 @@
                     <DataGridTextColumn Header="Timestamp" Binding="{Binding TimeStamp, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}}" />
                     <DataGridTextColumn Header="Activity" Binding="{Binding Text}" Width="*"/>
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Delete Activity" Command="{Binding DeleteActivity, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" CommandParameter="{Binding SelectedRecord}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
         </Grid>
 
