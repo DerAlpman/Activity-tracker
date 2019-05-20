@@ -18,10 +18,7 @@ namespace ActivityTracker.ViewModels
     {
         #region FIELDS
 
-        private readonly ObservableCollection<IActivityModel> _Activities;
-        private int _ActivityOrderNumber;
-        private string _Text;
-        private readonly IList<int> _OrderNumbers;
+        private ObservableCollection<IActivityModel> _Activities; private string _Text;
         private Dictionary<string, string> _Errors { get; } = new Dictionary<string, string>();
         private static List<PropertyInfo> _PropertyInfos;
         private DateTime _TimeStamp;
@@ -40,7 +37,6 @@ namespace ActivityTracker.ViewModels
         public ActivitiesViewModel()
         {
             _Activities = new ObservableCollection<IActivityModel>();
-            _OrderNumbers = new List<int>();
 
             AddActivity = new DelegateCommand(ExecuteAddActivity, CanExecuteAddActivity);
             SaveActivities = new DelegateCommand(ExecuteSaveActivities, CanExecuteSaveActivities);
@@ -49,33 +45,24 @@ namespace ActivityTracker.ViewModels
 
 #if DEBUG
             LoadActivities();
-            LoadOrderNumbers();
 #endif
         }
 
         private void LoadActivities()
         {
-            _Activities.Add(new ActivityModel(4670, new DateTime(2019, 4, 21, 8, 0, 0), "541", new TimeSpan(0, 20, 0)));
-            _Activities.Add(new ActivityModel(4670, new DateTime(2019, 4, 21, 8, 20, 0), "541", new TimeSpan(0, 20, 0)));
-            _Activities.Add(new ActivityModel(4670, new DateTime(2019, 4, 21, 8, 40, 0), "541", new TimeSpan(0, 20, 0)));
-            _Activities.Add(new ActivityModel(4670, new DateTime(2019, 4, 21, 9, 0, 0), "541", new TimeSpan(0, 20, 0)));
-            _Activities.Add(new ActivityModel(4670, new DateTime(2019, 4, 21, 9, 20, 0), "111", new TimeSpan(0, 20, 0)));
-            _Activities.Add(new ActivityModel(4670, new DateTime(2019, 4, 21, 9, 40, 0), "111", new TimeSpan(0, 20, 0)));
-            _Activities.Add(new ActivityModel(4670, new DateTime(2019, 4, 21, 10, 0, 0), "541", new TimeSpan(0, 20, 0)));
-            _Activities.Add(new ActivityModel(4670, new DateTime(2019, 4, 21, 10, 20, 0), "134", new TimeSpan(0, 20, 0)));
-            _Activities.Add(new ActivityModel(4670, new DateTime(2019, 4, 21, 10, 40, 0), "134", new TimeSpan(0, 20, 0)));
-            _Activities.Add(new ActivityModel(4670, new DateTime(2019, 4, 21, 11, 20, 0), "111", new TimeSpan(0, 40, 0)));
-            _Activities.Add(new ActivityModel(4670, new DateTime(2019, 4, 21, 12, 0, 0), "134", new TimeSpan(0, 40, 0)));
-            _Activities.Add(new ActivityModel(4670, new DateTime(2019, 4, 21, 12, 20, 0), "134", new TimeSpan(0, 20, 0)));
-            _Activities.Add(new ActivityModel(4670, new DateTime(2019, 4, 21, 12, 40, 0), "134", new TimeSpan(0, 20, 0)));
-        }
-
-        private void LoadOrderNumbers()
-        {
-            _OrderNumbers.Add(4670);
-            _OrderNumbers.Add(2470);
-            _OrderNumbers.Add(5540);
-            _OrderNumbers.Add(1230);
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 8, 0, 0), "541", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 8, 20, 0), "541", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 8, 40, 0), "541", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 9, 0, 0), "541", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 9, 20, 0), "111", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 9, 40, 0), "111", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 10, 0, 0), "541", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 10, 20, 0), "134", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 10, 40, 0), "134", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 11, 20, 0), "111", new TimeSpan(0, 40, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 0, 0), "134", new TimeSpan(0, 40, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 20, 0), "134", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 40, 0), "134", new TimeSpan(0, 20, 0)));
         }
 
         #endregion
@@ -98,7 +85,7 @@ namespace ActivityTracker.ViewModels
         {
             TimeSpan duration = GetDurationAndUpdateTimeStamp();
 
-            Activities.Add(new ActivityModel(this.ActivityOrderNumber, _TimeStamp, this.Text, duration));
+            Activities.Add(new ActivityModel(_TimeStamp, this.Text, duration));
 
             UpdateSaveActivitiesCommand();
         }
@@ -129,20 +116,6 @@ namespace ActivityTracker.ViewModels
 
         [EnsureMinimumElements(1, ErrorMessage = "Es muss mindestens eine Aktivität in der Liste vorhanden sein.")]
         public ObservableCollection<IActivityModel> Activities { get => _Activities; }
-
-        [EnsureMinimumElements(1, ErrorMessage = "Es muss mindestens eine Auftragsnummer zur Auswahl stehen.")]
-        public IList<int> OrderNumbers { get => _OrderNumbers; }
-
-        [MinLength(4, ErrorMessage = "Es muss eine Auftragsnummer ausgewählt sein.")]
-        public int ActivityOrderNumber
-        {
-            get => _ActivityOrderNumber;
-            set
-            {
-                _ActivityOrderNumber = value;
-                AddActivity.RaiseCanExecuteChanged();
-            }
-        }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Es ist keine Aktivität eingetragen.")]
         [MaxLength(40, ErrorMessage = "Es sind maximal 40 Zeichen möglich.")]
