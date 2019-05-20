@@ -29,6 +29,11 @@
                     <DataGridTextColumn Header="Timestamp" Binding="{Binding TimeStamp, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}}" />
                     <DataGridTextColumn Header="Activity" Binding="{Binding Text}" Width="*"/>
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Delete Activity" Command="{Binding DeleteActivity}" CommandParameter="{Binding SelectedRecord}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
         </Grid>
 

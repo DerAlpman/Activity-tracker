@@ -76,11 +76,12 @@ namespace ActivityTracker.ViewModels
 
         private bool CanExecuteDeleteActivity()
         {
-            return true;
+            return SelectedRecord != null;
         }
 
         private void ExecuteDeleteActivity()
         {
+            Activities.Remove(SelectedRecord);
         }
 
         private void ExecuteSaveActivities()
