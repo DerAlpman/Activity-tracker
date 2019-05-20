@@ -23,14 +23,12 @@
 
         <Grid Grid.Row="0" Margin="10,0,10,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
                 <ColumnDefinition Width="*" ></ColumnDefinition>
                 <ColumnDefinition Width="40"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Row="0" Grid.Column="0">
-                <ComboBox Name="comboboxOrderNumbers" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                          ItemsSource="{Binding Path=OrderNumbers}"
-                          SelectedValue="{Binding Path=ActivityOrderNumber, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                <Label x:Name="labelActivity" Content="Activity" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1">
                 <TextBox x:Name="textboxActivity" Style="{StaticResource textboxActivityStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="23" TextWrapping="NoWrap">
