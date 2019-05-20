@@ -19,6 +19,7 @@
                       ItemsSource="{Binding Activities}"
                       SelectionMode="Single"
                       SelectionUnit="FullRow"
+                      SelectedItem="{Binding Path=SelectedRecord, Mode=TwoWay}"
                       CanUserReorderColumns="False"
                       CanUserSortColumns="False"
                       CanUserResizeColumns="True"

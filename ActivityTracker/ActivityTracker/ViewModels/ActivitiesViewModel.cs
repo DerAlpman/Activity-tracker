@@ -18,7 +18,10 @@ namespace ActivityTracker.ViewModels
     {
         #region FIELDS
 
-        private ObservableCollection<IActivityModel> _Activities; private string _Text;
+        private readonly ObservableCollection<IActivityModel> _Activities;
+        private string _Text;
+        private ActivityModel _SelectedRecord;
+
         private Dictionary<string, string> _Errors { get; } = new Dictionary<string, string>();
         private static List<PropertyInfo> _PropertyInfos;
         private DateTime _TimeStamp;
@@ -28,6 +31,7 @@ namespace ActivityTracker.ViewModels
         #region COMMANDS
 
         public DelegateCommand AddActivity { get; set; }
+        public DelegateCommand DeleteActivity { get; set; }
         public DelegateCommand SaveActivities { get; set; }
 
         #endregion
@@ -39,6 +43,7 @@ namespace ActivityTracker.ViewModels
             _Activities = new ObservableCollection<IActivityModel>();
 
             AddActivity = new DelegateCommand(ExecuteAddActivity, CanExecuteAddActivity);
+            DeleteActivity = new DelegateCommand(ExecuteDeleteActivity, CanExecuteDeleteActivity);
             SaveActivities = new DelegateCommand(ExecuteSaveActivities, CanExecuteSaveActivities);
 
             _TimeStamp = DateTime.Now;
@@ -67,6 +72,17 @@ namespace ActivityTracker.ViewModels
 
         #endregion
 
+        #region COMMANDS
+
+        private bool CanExecuteDeleteActivity()
+        {
+            return true;
+        }
+
+        private void ExecuteDeleteActivity()
+        {
+        }
+
         private void ExecuteSaveActivities()
         {
             if (ActivitiesWriter.TryWriteActivitiesToFile(Activities))
@@ -89,6 +105,8 @@ namespace ActivityTracker.ViewModels
 
             UpdateSaveActivitiesCommand();
         }
+
+        #endregion
 
         private TimeSpan GetDurationAndUpdateTimeStamp()
         {
@@ -126,6 +144,15 @@ namespace ActivityTracker.ViewModels
             {
                 _Text = value;
                 AddActivity.RaiseCanExecuteChanged();
+            }
+        }
+
+        public ActivityModel SelectedRecord
+        {
+            get => _SelectedRecord;
+            set
+            {
+                _SelectedRecord = value;
             }
         }
 
