@@ -21,6 +21,7 @@ namespace ActivityTracker.ViewModels
         private readonly ObservableCollection<IActivityModel> _Activities;
         private string _Text;
         private ActivityModel _SelectedRecord;
+        private string _DocumentedHours;
 
         private Dictionary<string, string> _Errors { get; } = new Dictionary<string, string>();
         private static List<PropertyInfo> _PropertyInfos;
@@ -113,6 +114,7 @@ namespace ActivityTracker.ViewModels
             TimeSpan duration = GetDurationAndUpdateTimeStamp();
 
             Activities.Add(new ActivityModel(_TimeStamp, this.Text, duration));
+            DocumentedHours = Activities.Sum(a => a.TimeSpan.TotalHours).ToString("F1");
 
             UpdateSaveActivitiesCommand();
         }
@@ -161,6 +163,20 @@ namespace ActivityTracker.ViewModels
             {
                 _Text = value;
                 AddActivity.RaiseCanExecuteChanged();
+            }
+        }
+
+        public string DocumentedHours
+        {
+            get => _DocumentedHours;
+
+            set
+            {
+                if (_DocumentedHours != value)
+                {
+                    _DocumentedHours = value;
+                    RaisePropertyChanged(nameof(DocumentedHours));
+                }
             }
         }
 
