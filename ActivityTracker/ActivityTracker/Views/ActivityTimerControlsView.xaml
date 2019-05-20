@@ -19,9 +19,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Row="0" Grid.Column="0">
-                <ComboBox x:Name="comboBoxTimespan" HorizontalAlignment="Left" VerticalAlignment="Center" Width="46"/>
-                <Button x:Name="buttonStartTracking" Content="Start" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40"/>
-                <Button x:Name="buttonStopTracking" Content="Stop" HorizontalAlignment="Right" VerticalAlignment="Center" Width="40"/>
+                <Label x:Name="lblDocumentedHours" Content="{Binding DocumentedHours, Mode=TwoWay}" />
             </Grid>
 
             <Grid Grid.Row="0" Grid.Column="1">
