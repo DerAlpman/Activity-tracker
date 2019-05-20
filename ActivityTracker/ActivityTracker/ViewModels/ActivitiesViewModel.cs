@@ -74,6 +74,8 @@ namespace ActivityTracker.ViewModels
 
         #region COMMANDS
 
+        #region DELETE
+
         private bool CanExecuteDeleteActivity()
         {
             return SelectedRecord != null;
@@ -83,6 +85,10 @@ namespace ActivityTracker.ViewModels
         {
             Activities.Remove(SelectedRecord);
         }
+
+        #endregion
+
+        #region SAVE
 
         private void ExecuteSaveActivities()
         {
@@ -98,6 +104,10 @@ namespace ActivityTracker.ViewModels
             return !_Errors.Any(e => e.Key.Equals(nameof(Activities)));
         }
 
+        #endregion
+
+        #region ADD
+
         private void ExecuteAddActivity()
         {
             TimeSpan duration = GetDurationAndUpdateTimeStamp();
@@ -107,7 +117,16 @@ namespace ActivityTracker.ViewModels
             UpdateSaveActivitiesCommand();
         }
 
+        private bool CanExecuteAddActivity()
+        {
+            return !_Errors.Any(e => e.Key.Equals(nameof(Text)));
+        }
+
         #endregion
+
+        #endregion
+
+        #region METHODS
 
         private TimeSpan GetDurationAndUpdateTimeStamp()
         {
@@ -126,10 +145,7 @@ namespace ActivityTracker.ViewModels
             SaveActivities.RaiseCanExecuteChanged();
         }
 
-        private bool CanExecuteAddActivity()
-        {
-            return !_Errors.Any(e => e.Key.Equals(nameof(Text)));
-        }
+        #endregion
 
         #region PROPERTIES
 
