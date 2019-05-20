@@ -7,14 +7,16 @@ namespace ActivityTracker.Models
     {
         #region FIELDS
 
+        private readonly int _OrderNumber;
         private readonly DateTime _TimeStamp;
         private readonly string _Text;
-        private TimeSpan _TimeSpan;
+        private readonly TimeSpan _TimeSpan;
 
         #endregion
 
-        public ActivityModel(DateTime timeStamp, string text, TimeSpan timeSpan)
+        public ActivityModel(int orderNumber, DateTime timeStamp, string text, TimeSpan timeSpan)
         {
+            this._OrderNumber = orderNumber;
             this._TimeStamp = timeStamp;
             this._Text = text;
             this._TimeSpan = timeSpan;
@@ -22,9 +24,10 @@ namespace ActivityTracker.Models
 
         #region PROPERTIES
 
-        public string Text { get => _Text; }
-        public DateTime TimeStamp { get => _TimeStamp; }
-        public TimeSpan TimeSpan { get => _TimeSpan; }
+        public int OrderNumber => _OrderNumber;
+        public string Text => _Text;
+        public DateTime TimeStamp => _TimeStamp;
+        public TimeSpan TimeSpan => _TimeSpan;
 
         #endregion
     }

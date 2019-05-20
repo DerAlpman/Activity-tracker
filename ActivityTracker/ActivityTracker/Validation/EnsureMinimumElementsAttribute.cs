@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
 
 namespace ActivityTracker.Validation
 {
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
     internal class EnsureMinimumElementsAttribute : ValidationAttribute
     {
         #region FIELDS
