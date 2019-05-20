@@ -154,6 +154,7 @@ namespace ActivityTracker.ViewModels
             set
             {
                 _SelectedRecord = value;
+                DeleteActivity.RaiseCanExecuteChanged();
             }
         }
 
@@ -199,7 +200,7 @@ namespace ActivityTracker.ViewModels
                     var currentValue = prop.GetValue(this);
                     var reqAttr = prop.GetCustomAttribute<RequiredAttribute>();
                     var maxLenAttr = prop.GetCustomAttribute<MaxLengthAttribute>();
-                    var ensureMinLenAttr = prop.GetCustomAttribute<EnsureMinimumElementsAttribute>();
+                    var ensureMinEleAttr = prop.GetCustomAttribute<EnsureMinimumElementsAttribute>();
 
                     if (reqAttr != null)
                     {
@@ -217,15 +218,15 @@ namespace ActivityTracker.ViewModels
                         }
                     }
 
-                    if (ensureMinLenAttr != null && currentValue != null)
+                    if (ensureMinEleAttr != null && currentValue != null)
                     {
                         var list = currentValue as IList;
 
                         if (list != null)
                         {
-                            if (list.Count < ensureMinLenAttr.MinElements)
+                            if (list.Count < ensureMinEleAttr.MinElements)
                             {
-                                _Errors.Add(prop.Name, ensureMinLenAttr.ErrorMessage);
+                                _Errors.Add(prop.Name, ensureMinEleAttr.ErrorMessage);
                             }
                         }
                     }

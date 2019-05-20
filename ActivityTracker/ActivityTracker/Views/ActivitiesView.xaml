@@ -31,7 +31,7 @@
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Delete Activity" Command="{Binding DeleteActivity}" CommandParameter="{Binding SelectedRecord}" />
+                        <MenuItem Header="Delete Activity" Command="{Binding DeleteActivity, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" CommandParameter="{Binding SelectedRecord}" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>
