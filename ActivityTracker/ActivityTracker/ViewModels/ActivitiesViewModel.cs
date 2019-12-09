@@ -18,7 +18,11 @@ namespace ActivityTracker.ViewModels
     {
         #region FIELDS
 
-        private ObservableCollection<IActivityModel> _Activities; private string _Text;
+        private readonly ObservableCollection<IActivityModel> _Activities;
+        private string _Text;
+        private ActivityModel _SelectedRecord;
+        private string _DocumentedHours;
+
         private Dictionary<string, string> _Errors { get; } = new Dictionary<string, string>();
         private static List<PropertyInfo> _PropertyInfos;
         private DateTime _TimeStamp;
@@ -28,6 +32,7 @@ namespace ActivityTracker.ViewModels
         #region COMMANDS
 
         public DelegateCommand AddActivity { get; set; }
+        public DelegateCommand DeleteActivity { get; set; }
         public DelegateCommand SaveActivities { get; set; }
 
         #endregion
@@ -39,6 +44,7 @@ namespace ActivityTracker.ViewModels
             _Activities = new ObservableCollection<IActivityModel>();
 
             AddActivity = new DelegateCommand(ExecuteAddActivity, CanExecuteAddActivity);
+            DeleteActivity = new DelegateCommand(ExecuteDeleteActivity, CanExecuteDeleteActivity);
             SaveActivities = new DelegateCommand(ExecuteSaveActivities, CanExecuteSaveActivities);
 
             _TimeStamp = DateTime.Now;
@@ -67,6 +73,24 @@ namespace ActivityTracker.ViewModels
 
         #endregion
 
+        #region COMMANDS
+
+        #region DELETE
+
+        private bool CanExecuteDeleteActivity()
+        {
+            return SelectedRecord != null;
+        }
+
+        private void ExecuteDeleteActivity()
+        {
+            Activities.Remove(SelectedRecord);
+        }
+
+        #endregion
+
+        #region SAVE
+
         private void ExecuteSaveActivities()
         {
             if (ActivitiesWriter.TryWriteActivitiesToFile(Activities))
@@ -81,14 +105,30 @@ namespace ActivityTracker.ViewModels
             return !_Errors.Any(e => e.Key.Equals(nameof(Activities)));
         }
 
+        #endregion
+
+        #region ADD
+
         private void ExecuteAddActivity()
         {
             TimeSpan duration = GetDurationAndUpdateTimeStamp();
 
             Activities.Add(new ActivityModel(_TimeStamp, this.Text, duration));
+            DocumentedHours = Activities.Sum(a => a.TimeSpan.TotalHours).ToString("F1");
 
             UpdateSaveActivitiesCommand();
         }
+
+        private bool CanExecuteAddActivity()
+        {
+            return !_Errors.Any(e => e.Key.Equals(nameof(Text)));
+        }
+
+        #endregion
+
+        #endregion
+
+        #region METHODS
 
         private TimeSpan GetDurationAndUpdateTimeStamp()
         {
@@ -107,10 +147,7 @@ namespace ActivityTracker.ViewModels
             SaveActivities.RaiseCanExecuteChanged();
         }
 
-        private bool CanExecuteAddActivity()
-        {
-            return !_Errors.Any(e => e.Key.Equals(nameof(Text)));
-        }
+        #endregion
 
         #region PROPERTIES
 
@@ -126,6 +163,30 @@ namespace ActivityTracker.ViewModels
             {
                 _Text = value;
                 AddActivity.RaiseCanExecuteChanged();
+            }
+        }
+
+        public string DocumentedHours
+        {
+            get => _DocumentedHours;
+
+            set
+            {
+                if (_DocumentedHours != value)
+                {
+                    _DocumentedHours = value;
+                    RaisePropertyChanged(nameof(DocumentedHours));
+                }
+            }
+        }
+
+        public ActivityModel SelectedRecord
+        {
+            get => _SelectedRecord;
+            set
+            {
+                _SelectedRecord = value;
+                DeleteActivity.RaiseCanExecuteChanged();
             }
         }
 
@@ -171,7 +232,7 @@ namespace ActivityTracker.ViewModels
                     var currentValue = prop.GetValue(this);
                     var reqAttr = prop.GetCustomAttribute<RequiredAttribute>();
                     var maxLenAttr = prop.GetCustomAttribute<MaxLengthAttribute>();
-                    var ensureMinLenAttr = prop.GetCustomAttribute<EnsureMinimumElementsAttribute>();
+                    var ensureMinEleAttr = prop.GetCustomAttribute<EnsureMinimumElementsAttribute>();
 
                     if (reqAttr != null)
                     {
@@ -189,15 +250,15 @@ namespace ActivityTracker.ViewModels
                         }
                     }
 
-                    if (ensureMinLenAttr != null && currentValue != null)
+                    if (ensureMinEleAttr != null && currentValue != null)
                     {
                         var list = currentValue as IList;
 
                         if (list != null)
                         {
-                            if (list.Count < ensureMinLenAttr.MinElements)
+                            if (list.Count < ensureMinEleAttr.MinElements)
                             {
-                                _Errors.Add(prop.Name, ensureMinLenAttr.ErrorMessage);
+                                _Errors.Add(prop.Name, ensureMinEleAttr.ErrorMessage);
                             }
                         }
                     }

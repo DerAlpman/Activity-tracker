@@ -35,8 +35,8 @@ namespace ActivityTracker
         {
             using (StreamWriter sw = new StreamWriter(output))
             {
-                sw.Write("Chronologie:");
-                sw.Write("------------");
+                sw.WriteLine("Chronologie:");
+                sw.WriteLine("------------");
                 for (int i = 0; i < activities.Count; i++)
                 {
                     sw.WriteLine(String.Format("{0}: {1} ({2} Minuten)",
@@ -53,8 +53,13 @@ namespace ActivityTracker
                 foreach (var group in activities.GroupBy(a => a.Text))
                 {
                     var groupDuration = group.Sum(am => am.TimeSpan.TotalHours);
-                    sw.WriteLine(String.Format("{0}: {1} Stunden", group.Key, groupDuration.ToString("F2")));
+                    sw.WriteLine(String.Format("{0}: {1} Stunden", group.Key, groupDuration.ToString("F1")));
                 }
+
+                sw.WriteLine();
+                sw.WriteLine();
+
+                sw.WriteLine(String.Format("Gesamtzeit: {0}", activities.Sum(a => a.TimeSpan.TotalHours).ToString("F1")));
             }
         }
 
