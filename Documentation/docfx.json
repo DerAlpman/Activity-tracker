@@ -10,7 +10,7 @@
           "src": "../ActivityTracker"
         }
       ],
-      "dest": "api",
+      "dest": "api"
     }
   ],
   "build": {

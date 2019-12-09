@@ -14,7 +14,7 @@ using Prism.Mvvm;
 
 namespace ActivityTracker.ViewModels
 {
-    public class ActivitiesViewModel : BindableBase, IDataErrorInfo
+    internal class ActivitiesViewModel : BindableBase, IDataErrorInfo
     {
         #region FIELDS
 
@@ -114,7 +114,7 @@ namespace ActivityTracker.ViewModels
             TimeSpan duration = GetDurationAndUpdateTimeStamp();
 
             Activities.Add(new ActivityModel(_TimeStamp, this.Text, duration));
-            DocumentedHours = Activities.Sum(a => a.TimeSpan.TotalHours).ToString("F1");
+            DocumentedHours = Activities.Sum(a => a.Duration.TotalHours).ToString("F1");
 
             UpdateSaveActivitiesCommand();
         }
@@ -190,7 +190,7 @@ namespace ActivityTracker.ViewModels
             }
         }
 
-        protected List<PropertyInfo> PropertyInfos
+        internal List<PropertyInfo> PropertyInfos
         {
             get
             {
@@ -211,14 +211,22 @@ namespace ActivityTracker.ViewModels
 
         #region IDataErrorInfo
 
+        /// <summary>
+        /// <see cref="IDataErrorInfo.Error"/>
+        /// </summary>
         public string Error => string.Empty;
 
-        public string this[string columnName]
+        /// <summary>
+        /// <see cref="IDataErrorInfo"/>
+        /// </summary>
+        /// <param name="propertyName">The name of a property of this class.</param>
+        /// <returns>Message stored for property <paramref name="propertyName"/>.</returns>
+        public string this[string propertyName]
         {
             get
             {
                 CollectErrors();
-                return _Errors.ContainsKey(columnName) ? _Errors[columnName] : string.Empty;
+                return _Errors.ContainsKey(propertyName) ? _Errors[propertyName] : string.Empty;
             }
         }
 

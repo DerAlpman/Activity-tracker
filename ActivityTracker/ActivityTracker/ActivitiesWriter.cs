@@ -40,9 +40,9 @@ namespace ActivityTracker
                 for (int i = 0; i < activities.Count; i++)
                 {
                     sw.WriteLine(String.Format("{0}: {1} ({2} Minuten)",
-                        activities[i].TimeStamp.ToString(CultureInfo.CurrentCulture),
+                        activities[i].Start.ToString(CultureInfo.CurrentCulture),
                         activities[i].Text,
-                        activities[i].TimeSpan.TotalMinutes.ToString("F0")));
+                        activities[i].Duration.TotalMinutes.ToString("F0")));
                 }
 
                 sw.WriteLine();
@@ -52,14 +52,14 @@ namespace ActivityTracker
                 sw.WriteLine("----------");
                 foreach (var group in activities.GroupBy(a => a.Text))
                 {
-                    var groupDuration = group.Sum(am => am.TimeSpan.TotalHours);
+                    var groupDuration = group.Sum(am => am.Duration.TotalHours);
                     sw.WriteLine(String.Format("{0}: {1} Stunden", group.Key, groupDuration.ToString("F1")));
                 }
 
                 sw.WriteLine();
                 sw.WriteLine();
 
-                sw.WriteLine(String.Format("Gesamtzeit: {0}", activities.Sum(a => a.TimeSpan.TotalHours).ToString("F1")));
+                sw.WriteLine(String.Format("Gesamtzeit: {0}", activities.Sum(a => a.Duration.TotalHours).ToString("F1")));
             }
         }
 

@@ -7,6 +7,9 @@ namespace ActivityTracker.Views
     /// </summary>
     public partial class ActivityTimerControlsView : UserControl
     {
+        /// <summary>
+        /// <para>Initializes a new instance of the <see cref="ActivityTimerControlsView"/> class.</para>
+        /// </summary>
         public ActivityTimerControlsView()
         {
             InitializeComponent();

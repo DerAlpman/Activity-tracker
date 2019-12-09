@@ -3,7 +3,10 @@ using Components.ActivityTracker.Interfaces;
 
 namespace ActivityTracker.Models
 {
-    public class ActivityModel : IActivityModel
+    /// <summary>
+    /// <see cref="IActivityModel"/>
+    /// </summary>
+    internal class ActivityModel : IActivityModel
     {
         #region FIELDS
 
@@ -14,7 +17,7 @@ namespace ActivityTracker.Models
 
         #endregion
 
-        public ActivityModel(DateTime timeStamp, string text, TimeSpan timeSpan)
+        internal ActivityModel(DateTime timeStamp, string text, TimeSpan timeSpan)
         {
             this._ID = Guid.NewGuid();
             this._TimeStamp = timeStamp;
@@ -23,11 +26,25 @@ namespace ActivityTracker.Models
         }
 
         #region PROPERTIES
-
+        /// <summary>
+        /// <see cref="IActivityModel.ID"/>
+        /// </summary>
         public Guid ID { get => _ID; }
+
+        /// <summary>
+        /// <see cref="IActivityModel.Text"/>
+        /// </summary>
         public string Text { get => _Text; }
-        public DateTime TimeStamp { get => _TimeStamp; }
-        public TimeSpan TimeSpan { get => _TimeSpan; }
+
+        /// <summary>
+        /// <see cref="IActivityModel.Start"/>
+        /// </summary>
+        public DateTime Start { get => _TimeStamp; }
+
+        /// <summary>
+        /// <see cref="IActivityModel.Duration"/>
+        /// </summary>
+        public TimeSpan Duration { get => _TimeSpan; }
 
         #endregion
     }
