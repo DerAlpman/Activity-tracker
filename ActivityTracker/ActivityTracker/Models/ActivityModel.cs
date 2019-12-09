@@ -17,6 +17,9 @@ namespace ActivityTracker.Models
 
         #endregion
 
+        /// <summary>
+        /// <para>Initializes a new instance of the <see cref="ActivityModel"/> class.</para>
+        /// </summary>
         internal ActivityModel(DateTime timeStamp, string text, TimeSpan timeSpan)
         {
             this._ID = Guid.NewGuid();
