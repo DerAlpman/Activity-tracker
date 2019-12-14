@@ -39,6 +39,9 @@ namespace ActivityTracker.ViewModels
 
         #region CONSTRUCTOR
 
+        /// <summary>
+        /// <para>Initializes a new instance of the <see cref="ActivitiesViewModel"/> class.</para>
+        /// </summary>
         public ActivitiesViewModel()
         {
             _Activities = new ObservableCollection<IActivityModel>();
