@@ -23,7 +23,7 @@ namespace ActivityTracker.ViewModels
         private ActivityModel _SelectedRecord;
         private string _DocumentedHours;
 
-        private Dictionary<string, string> _Errors { get; } = new Dictionary<string, string>();
+        private Dictionary<string, string> Errors { get; } = new Dictionary<string, string>();
         private static List<PropertyInfo> _PropertyInfos;
         private DateTime _TimeStamp;
 
@@ -31,8 +31,19 @@ namespace ActivityTracker.ViewModels
 
         #region COMMANDS
 
+        /// <summary>
+        /// <para>A <see cref="DelegateCommand"/> to add an activity.</para>
+        /// </summary>
         public DelegateCommand AddActivity { get; set; }
+
+        /// <summary>
+        /// <para>A <see cref="DelegateCommand"/> to delete an activity.</para>
+        /// </summary>
         public DelegateCommand DeleteActivity { get; set; }
+
+        /// <summary>
+        /// <para>A <see cref="DelegateCommand"/> to save all activities.</para>
+        /// </summary>
         public DelegateCommand SaveActivities { get; set; }
 
         #endregion
@@ -105,7 +116,7 @@ namespace ActivityTracker.ViewModels
 
         private bool CanExecuteSaveActivities()
         {
-            return !_Errors.Any(e => e.Key.Equals(nameof(Activities)));
+            return !Errors.Any(e => e.Key.Equals(nameof(Activities)));
         }
 
         #endregion
@@ -124,7 +135,7 @@ namespace ActivityTracker.ViewModels
 
         private bool CanExecuteAddActivity()
         {
-            return !_Errors.Any(e => e.Key.Equals(nameof(Text)));
+            return !Errors.Any(e => e.Key.Equals(nameof(Text)));
         }
 
         #endregion
@@ -154,9 +165,15 @@ namespace ActivityTracker.ViewModels
 
         #region PROPERTIES
 
+        /// <summary>
+        /// <para>This property contains all activities added by the user.</para>
+        /// </summary>
         [EnsureMinimumElements(1, ErrorMessage = "Es muss mindestens eine Aktivität in der Liste vorhanden sein.")]
         public ObservableCollection<IActivityModel> Activities { get => _Activities; }
 
+        /// <summary>
+        /// <see cref="IActivityModel.Text"/>
+        /// </summary>
         [Required(AllowEmptyStrings = false, ErrorMessage = "Es ist keine Aktivität eingetragen.")]
         [MaxLength(40, ErrorMessage = "Es sind maximal 40 Zeichen möglich.")]
         public string Text
@@ -169,6 +186,9 @@ namespace ActivityTracker.ViewModels
             }
         }
 
+        /// <summary>
+        /// <para>This property contains the sum of the duration of all captured activities.</para>
+        /// </summary>
         public string DocumentedHours
         {
             get => _DocumentedHours;
@@ -183,6 +203,9 @@ namespace ActivityTracker.ViewModels
             }
         }
 
+        /// <summary>
+        /// <para>This property holds the currently in the data grid selected activity.</para>
+        /// </summary>
         public ActivityModel SelectedRecord
         {
             get => _SelectedRecord;
@@ -193,6 +216,9 @@ namespace ActivityTracker.ViewModels
             }
         }
 
+        /// <summary>
+        /// <para>The property determine all <see cref="PropertyInfo"/> of properties with certain <see cref="ValidationAttribute"/>.</para>
+        /// </summary>
         internal List<PropertyInfo> PropertyInfos
         {
             get
@@ -221,21 +247,26 @@ namespace ActivityTracker.ViewModels
 
         /// <summary>
         /// <see cref="IDataErrorInfo"/>
+        /// <para>Whenever a property of an instance of <see cref="ActivitiesViewModel"/> is changed, possible errors are collected.</para>
         /// </summary>
         /// <param name="propertyName">The name of a property of this class.</param>
-        /// <returns>Message stored for property <paramref name="propertyName"/>.</returns>
+        /// <returns>Message stored for property <paramref name="propertyName"/>. <see cref="string.Empty"/> if no error is found.</returns>
         public string this[string propertyName]
         {
             get
             {
                 CollectErrors();
-                return _Errors.ContainsKey(propertyName) ? _Errors[propertyName] : string.Empty;
+                return Errors.ContainsKey(propertyName) ? Errors[propertyName] : string.Empty;
             }
         }
 
+        /// <summary>
+        /// <para>Every property is asked for their <see cref="ValidationAttribute"/>.</para>
+        /// <para>If the requirement is met, the attributes <see cref="ValidationAttribute.ErrorMessage"/> is stored.</para>
+        /// </summary>
         private void CollectErrors()
         {
-            _Errors.Clear();
+            Errors.Clear();
 
             PropertyInfos.ForEach(
                 prop =>
@@ -245,33 +276,24 @@ namespace ActivityTracker.ViewModels
                     var maxLenAttr = prop.GetCustomAttribute<MaxLengthAttribute>();
                     var ensureMinEleAttr = prop.GetCustomAttribute<EnsureMinimumElementsAttribute>();
 
-                    if (reqAttr != null)
+                    if (reqAttr != null
+                    && string.IsNullOrWhiteSpace(currentValue?.ToString() ?? string.Empty))
                     {
-                        if (string.IsNullOrWhiteSpace(currentValue?.ToString() ?? string.Empty))
-                        {
-                            _Errors.Add(prop.Name, reqAttr.ErrorMessage);
-                        }
+                        Errors.Add(prop.Name, reqAttr.ErrorMessage);
                     }
 
-                    if (maxLenAttr != null)
+                    if (maxLenAttr != null
+                    && (currentValue?.ToString() ?? string.Empty).Length > maxLenAttr.Length)
                     {
-                        if ((currentValue?.ToString() ?? string.Empty).Length > maxLenAttr.Length)
-                        {
-                            _Errors.Add(prop.Name, maxLenAttr.ErrorMessage);
-                        }
+                        Errors.Add(prop.Name, maxLenAttr.ErrorMessage);
                     }
 
-                    if (ensureMinEleAttr != null && currentValue != null)
+                    if (ensureMinEleAttr != null
+                    && currentValue != null
+                    && currentValue is IList list
+                    && list.Count < ensureMinEleAttr.MinElements)
                     {
-                        var list = currentValue as IList;
-
-                        if (list != null)
-                        {
-                            if (list.Count < ensureMinEleAttr.MinElements)
-                            {
-                                _Errors.Add(prop.Name, ensureMinEleAttr.ErrorMessage);
-                            }
-                        }
+                        Errors.Add(prop.Name, ensureMinEleAttr.ErrorMessage);
                     }
                 });
         }
