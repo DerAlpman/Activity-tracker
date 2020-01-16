@@ -8,46 +8,37 @@ namespace ActivityTracker.Models
     /// </summary>
     internal class ActivityModel : IActivityModel
     {
-        #region FIELDS
-
-        private readonly Guid _ID;
-        private readonly DateTime _TimeStamp;
-        private readonly string _Text;
-        private TimeSpan _TimeSpan;
-
-        #endregion
-
         /// <summary>
         /// <para>Initializes a new instance of the <see cref="ActivityModel"/> class.</para>
         /// </summary>
-        internal ActivityModel(DateTime timeStamp, string text, TimeSpan timeSpan)
+        internal ActivityModel(DateTime timeStamp, string text, TimeSpan duration)
         {
-            this._ID = Guid.NewGuid();
-            this._TimeStamp = timeStamp;
-            this._Text = text;
-            this._TimeSpan = timeSpan;
+            this.ID = Guid.NewGuid();
+            this.Start = timeStamp;
+            this.Text = text;
+            this.Duration = duration;
         }
 
         #region PROPERTIES
         /// <summary>
         /// <see cref="IActivityModel.ID"/>
         /// </summary>
-        public Guid ID { get => _ID; }
+        public Guid ID { get; }
 
         /// <summary>
         /// <see cref="IActivityModel.Text"/>
         /// </summary>
-        public string Text { get => _Text; }
+        public string Text { get; }
 
         /// <summary>
         /// <see cref="IActivityModel.Start"/>
         /// </summary>
-        public DateTime Start { get => _TimeStamp; }
+        public DateTime Start { get; }
 
         /// <summary>
         /// <see cref="IActivityModel.Duration"/>
         /// </summary>
-        public TimeSpan Duration { get => _TimeSpan; }
+        public TimeSpan Duration { get; }
 
         #endregion
     }
