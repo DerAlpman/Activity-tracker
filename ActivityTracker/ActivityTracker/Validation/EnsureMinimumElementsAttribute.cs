@@ -1,19 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
 
 namespace ActivityTracker.Validation
 {
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     /// <summary>
     /// <para>This attribute can be used to validate if an <see cref="ICollection"/> has a minimum number of elements. </para>
     /// </summary>
     internal class EnsureMinimumElementsAttribute : ValidationAttribute
     {
-        #region FIELDS
-
-        private readonly int _MinElements;
-
-        #endregion
-
         #region CONSTRUCTOR
 
         /// <summary>
@@ -21,7 +17,7 @@ namespace ActivityTracker.Validation
         /// </summary>
         internal EnsureMinimumElementsAttribute(int minElements)
         {
-            this._MinElements = minElements;
+            this.MinElements = minElements;
         }
 
         #endregion
@@ -31,7 +27,7 @@ namespace ActivityTracker.Validation
         /// <summary>
         /// <para>The minimum number the <see cref="ICollection"/> must have.</para>
         /// </summary>
-        public int MinElements => _MinElements;
+        public int MinElements { get; }
 
         #endregion
 
@@ -48,7 +44,7 @@ namespace ActivityTracker.Validation
 
             if (list != null)
             {
-                return list.Count >= _MinElements;
+                return list.Count >= MinElements;
             }
 
             return false;
