@@ -7,13 +7,22 @@
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding Source={StaticResource ActivitiesViewModel}}">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ActivityTracker;Component/XamlStyles/StyleResourcesActivitiesView.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="10,0,10,0">
-            <DataGrid x:Name="dataGridActivities" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"
+            <DataGrid x:Name="dataGridActivities"
+                      HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"
                       AutoGenerateColumns="False"
                       ItemsSource="{Binding Activities}"
                       SelectionMode="Single"
@@ -25,9 +34,16 @@
                       CanUserResizeRows="False"
                       IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Timestamp" Binding="{Binding Start, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}}" />
+                    <DataGridTextColumn Header="Timestamp" Binding="{Binding Start, StringFormat=\{0:dd.MM.yyyy HH:mm\}}" />
                     <DataGridTextColumn Header="Activity" Binding="{Binding Text}" Width="*"/>
                 </DataGrid.Columns>
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Style.Resources>
+                            <Style x:Key="dataGridRowActivityStyle" />
+                        </Style.Resources>
+                    </Style>
+                </DataGrid.RowStyle>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Delete Activity" Command="{Binding DeleteActivity, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" CommandParameter="{Binding SelectedRecord}" />

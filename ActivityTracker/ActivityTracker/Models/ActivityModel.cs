@@ -1,5 +1,5 @@
 ﻿using System;
-using Components.ActivityTracker.Interfaces;
+using Components.ActivityTracker;
 
 namespace ActivityTracker.Models
 {
@@ -11,12 +11,26 @@ namespace ActivityTracker.Models
         /// <summary>
         /// <para>Initializes a new instance of the <see cref="ActivityModel"/> class.</para>
         /// </summary>
+        internal ActivityModel(DateTime timeStamp, string text, TimeSpan duration, ActivityType type)
+        {
+            this.ID = Guid.NewGuid();
+            this.Start = timeStamp;
+            this.Text = text;
+            this.Duration = duration;
+            this.Type = type;
+        }
+
+
+        /// <summary>
+        /// <para>Initializes a new instance of the <see cref="ActivityModel"/> class.</para>
+        /// </summary>
         internal ActivityModel(DateTime timeStamp, string text, TimeSpan duration)
         {
             this.ID = Guid.NewGuid();
             this.Start = timeStamp;
             this.Text = text;
             this.Duration = duration;
+            this.Type = ActivityType.WORK;
         }
 
         #region PROPERTIES
@@ -40,6 +54,10 @@ namespace ActivityTracker.Models
         /// </summary>
         public TimeSpan Duration { get; }
 
+        /// <summary>
+        /// <see cref="IActivityModel.Type"/>
+        /// </summary>
+        public  ActivityType Type { get; }
         #endregion
     }
 }

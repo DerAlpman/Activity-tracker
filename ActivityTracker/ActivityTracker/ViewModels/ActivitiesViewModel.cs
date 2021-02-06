@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using ActivityTracker.Models;
 using ActivityTracker.Validation;
-using Components.ActivityTracker.Interfaces;
+using Components.ActivityTracker;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -37,6 +37,11 @@ namespace ActivityTracker.ViewModels
         public DelegateCommand AddActivity { get; set; }
 
         /// <summary>
+        /// <para>A <see cref="DelegateCommand"/> to add a break.</para>
+        /// </summary>
+        public DelegateCommand AddBreak { get; set; }
+
+        /// <summary>
         /// <para>A <see cref="DelegateCommand"/> to delete an activity.</para>
         /// </summary>
         public DelegateCommand DeleteActivity { get; set; }
@@ -58,6 +63,7 @@ namespace ActivityTracker.ViewModels
             _Activities = new ObservableCollection<IActivityModel>();
 
             AddActivity = new DelegateCommand(ExecuteAddActivity, CanExecuteAddActivity);
+            AddBreak = new DelegateCommand(ExecuteAddBreak, CanExecuteAddBreak);
             DeleteActivity = new DelegateCommand(ExecuteDeleteActivity, CanExecuteDeleteActivity);
             SaveActivities = new DelegateCommand(ExecuteSaveActivities, CanExecuteSaveActivities);
 
@@ -73,14 +79,14 @@ namespace ActivityTracker.ViewModels
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 8, 0, 0), "541", new TimeSpan(0, 20, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 8, 20, 0), "541", new TimeSpan(0, 20, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 8, 40, 0), "541", new TimeSpan(0, 20, 0)));
-            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 9, 0, 0), "541", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 9, 0, 0), "PAUSE", new TimeSpan(0, 20, 0), ActivityType.BREAK));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 9, 20, 0), "111", new TimeSpan(0, 20, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 9, 40, 0), "111", new TimeSpan(0, 20, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 10, 0, 0), "541", new TimeSpan(0, 20, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 10, 20, 0), "134", new TimeSpan(0, 20, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 10, 40, 0), "134", new TimeSpan(0, 20, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 11, 20, 0), "111", new TimeSpan(0, 40, 0)));
-            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 0, 0), "134", new TimeSpan(0, 40, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 0, 0), "PAUSE", new TimeSpan(0, 40, 0), ActivityType.BREAK));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 20, 0), "134", new TimeSpan(0, 20, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 40, 0), "134", new TimeSpan(0, 20, 0)));
         }
@@ -128,7 +134,10 @@ namespace ActivityTracker.ViewModels
             TimeSpan duration = GetDurationAndUpdateTimeStamp();
 
             Activities.Add(new ActivityModel(_TimeStamp, this.Text, duration));
-            DocumentedHours = Activities.Sum(a => a.Duration.TotalHours).ToString("F1");
+            DocumentedHours = Activities
+                .Where(a => a.Type != ActivityType.BREAK)
+                .Sum(a => a.Duration.TotalHours)
+                .ToString("F1");
 
             UpdateSaveActivitiesCommand();
         }
@@ -136,6 +145,20 @@ namespace ActivityTracker.ViewModels
         private bool CanExecuteAddActivity()
         {
             return !Errors.Any(e => e.Key.Equals(nameof(Text)));
+        }
+
+        private void ExecuteAddBreak()
+        {
+            TimeSpan duration = GetDurationAndUpdateTimeStamp();
+
+            Activities.Add(new ActivityModel(_TimeStamp, "PAUSE", duration, ActivityType.BREAK));
+
+            UpdateSaveActivitiesCommand();
+        }
+
+        private bool CanExecuteAddBreak()
+        {
+            return true;
         }
 
         #endregion

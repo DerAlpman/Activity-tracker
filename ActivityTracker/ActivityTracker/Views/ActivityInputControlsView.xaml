@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/ActivityTracker;Component/XamlStyles/StyleResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ActivityTracker;Component/XamlStyles/StyleResourcesActivityInputControlsView.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -24,7 +24,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"></ColumnDefinition>
                 <ColumnDefinition Width="*" ></ColumnDefinition>
-                <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition Width="80"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Row="0" Grid.Column="0">
                 <Label x:Name="labelActivity" Content="Activity" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
@@ -38,10 +38,19 @@
                 </TextBox>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
                 <Button x:Name="buttonAddActivity" Style="{StaticResource buttonAddActivityStyle}"
                         ToolTipService.ShowOnDisabled="True"
                         Command="{Binding AddActivity, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                        Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="23" Width="35"/>
+                        Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="23" Width="35"
+                        Grid.Row="0" Grid.Column="0"/>
+                <Button x:Name="buttonAddBreakActivity"
+                        Command="{Binding AddBreak}"
+                        Content="Break" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="23" Width="35"
+                        Grid.Row="0" Grid.Column="1"/>
             </Grid>
         </Grid>
     </Grid>

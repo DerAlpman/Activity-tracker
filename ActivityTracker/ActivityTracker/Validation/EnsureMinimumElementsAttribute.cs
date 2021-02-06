@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ActivityTracker.Validation
 {
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     /// <summary>
     /// <para>This attribute can be used to validate if an <see cref="ICollection"/> has a minimum number of elements. </para>
     /// </summary>
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     internal class EnsureMinimumElementsAttribute : ValidationAttribute
     {
         #region CONSTRUCTOR

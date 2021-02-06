@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Components.ActivityTracker.Interfaces
+namespace Components.ActivityTracker
 {
     /// <summary>
     /// <para>Provides properties for an activity that can be bound to a view model.</para>
@@ -26,5 +26,10 @@ namespace Components.ActivityTracker.Interfaces
         /// <para>The duration of the activity.</para>
         /// </summary>
         TimeSpan Duration { get; }
+
+        /// <summary>
+        /// <para>The <see cref="ActivityType"/> of this activity.</para>
+        /// </summary>
+        ActivityType Type { get; }
     }
 }
