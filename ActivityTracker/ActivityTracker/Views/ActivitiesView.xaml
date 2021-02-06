@@ -7,14 +7,6 @@
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding Source={StaticResource ActivitiesViewModel}}">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/ActivityTracker;Component/XamlStyles/StyleResourcesActivitiesView.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -39,9 +31,11 @@
                 </DataGrid.Columns>
                 <DataGrid.RowStyle>
                     <Style TargetType="{x:Type DataGridRow}">
-                        <Style.Resources>
-                            <Style x:Key="dataGridRowActivityStyle" />
-                        </Style.Resources>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Type}" Value="BREAK">
+                                <Setter Property="Background" Value="Yellow" />
+                            </DataTrigger>
+                        </Style.Triggers>
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.ContextMenu>

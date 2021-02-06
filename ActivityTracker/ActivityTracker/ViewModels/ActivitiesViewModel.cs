@@ -67,6 +67,8 @@ namespace ActivityTracker.ViewModels
             DeleteActivity = new DelegateCommand(ExecuteDeleteActivity, CanExecuteDeleteActivity);
             SaveActivities = new DelegateCommand(ExecuteSaveActivities, CanExecuteSaveActivities);
 
+            DocumentedHours = "0";
+
             _TimeStamp = DateTime.Now;
 
 #if DEBUG
@@ -89,6 +91,11 @@ namespace ActivityTracker.ViewModels
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 0, 0), "PAUSE", new TimeSpan(0, 40, 0), ActivityType.BREAK));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 20, 0), "134", new TimeSpan(0, 20, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 40, 0), "134", new TimeSpan(0, 20, 0)));
+
+            DocumentedHours = Activities
+                .Where(a => a.Type != ActivityType.BREAK)
+                .Sum(a => a.Duration.TotalHours)
+                .ToString("F1");
         }
 
         #endregion
