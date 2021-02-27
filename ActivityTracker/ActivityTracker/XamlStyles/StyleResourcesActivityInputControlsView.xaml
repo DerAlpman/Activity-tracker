@@ -7,7 +7,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style TargetType="TextBox" x:Key="textboxActivityStyle">
+    <Style TargetType="ComboBox" x:Key="comboboxActivityStyle">
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
                 <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}" />

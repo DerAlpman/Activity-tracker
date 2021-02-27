@@ -30,12 +30,12 @@
                 <Label x:Name="labelActivity" Content="Activity" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="1">
-                <TextBox x:Name="textboxActivity" Style="{StaticResource textboxActivityStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="23" TextWrapping="NoWrap">
-                    <TextBox.Text>
+                <ComboBox x:Name="comboboxActivity" Style="{StaticResource comboboxActivityStyle}" Height="23" IsEditable="True" ItemsSource="{Binding ActivitiesCache}">
+                    <ComboBox.Text>
                         <Binding Path="Text" Mode="TwoWay" ValidatesOnDataErrors="True" NotifyOnValidationError="True"
-                             UpdateSourceTrigger="PropertyChanged" />
-                    </TextBox.Text>
-                </TextBox>
+                             UpdateSourceTrigger="PropertyChanged" />                        
+                    </ComboBox.Text>
+                </ComboBox>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="2">
                 <Grid.ColumnDefinitions>

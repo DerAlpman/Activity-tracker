@@ -47,6 +47,11 @@ namespace ActivityTracker.ViewModels
         public DelegateCommand DeleteActivity { get; set; }
 
         /// <summary>
+        /// <para>A <see cref="DelegateCommand"/> to delete an activity.</para>
+        /// </summary>
+        public DelegateCommand DuplicateActivity { get; set; }
+
+        /// <summary>
         /// <para>A <see cref="DelegateCommand"/> to save all activities.</para>
         /// </summary>
         public DelegateCommand SaveActivities { get; set; }
@@ -65,6 +70,7 @@ namespace ActivityTracker.ViewModels
             AddActivity = new DelegateCommand(ExecuteAddActivity, CanExecuteAddActivity);
             AddBreak = new DelegateCommand(ExecuteAddBreak, CanExecuteAddBreak);
             DeleteActivity = new DelegateCommand(ExecuteDeleteActivity, CanExecuteDeleteActivity);
+            DuplicateActivity = new DelegateCommand(ExecuteDuplicateActivity, CanExecuteDuplicateActivity);
             SaveActivities = new DelegateCommand(ExecuteSaveActivities, CanExecuteSaveActivities);
 
             DocumentedHours = "0";
@@ -79,14 +85,14 @@ namespace ActivityTracker.ViewModels
         private void LoadActivities()
         {
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 8, 0, 0), "541", new TimeSpan(0, 20, 0)));
-            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 8, 20, 0), "541", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 8, 20, 0), "541", new TimeSpan(0, 28, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 8, 40, 0), "541", new TimeSpan(0, 20, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 9, 0, 0), "PAUSE", new TimeSpan(0, 20, 0), ActivityType.BREAK));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 9, 20, 0), "111", new TimeSpan(0, 20, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 9, 40, 0), "111", new TimeSpan(0, 20, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 10, 0, 0), "541", new TimeSpan(0, 20, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 10, 20, 0), "134", new TimeSpan(0, 20, 0)));
-            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 10, 40, 0), "134", new TimeSpan(0, 20, 0)));
+            _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 10, 40, 0), "134", new TimeSpan(0, 30, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 11, 20, 0), "111", new TimeSpan(0, 40, 0)));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 0, 0), "PAUSE", new TimeSpan(0, 40, 0), ActivityType.BREAK));
             _Activities.Add(new ActivityModel(new DateTime(2019, 4, 21, 12, 20, 0), "134", new TimeSpan(0, 20, 0)));
@@ -96,6 +102,8 @@ namespace ActivityTracker.ViewModels
                 .Where(a => a.Type != ActivityType.BREAK)
                 .Sum(a => a.Duration.TotalHours)
                 .ToString("F1");
+
+            _TimeStamp = DateTime.Now;
         }
 
         #endregion
@@ -112,6 +120,28 @@ namespace ActivityTracker.ViewModels
         private void ExecuteDeleteActivity()
         {
             Activities.Remove(SelectedRecord);
+            DocumentedHours = Activities
+                .Where(a => a.Type != ActivityType.BREAK)
+                .Sum(a => a.Duration.TotalHours)
+                .ToString("F1");
+        }
+
+        #endregion
+
+        #region DUPLICATE
+
+        private bool CanExecuteDuplicateActivity()
+        {
+            return SelectedRecord != null;
+        }
+
+        private void ExecuteDuplicateActivity()
+        {
+            InsertActivity(SelectedRecord.Text);
+            DocumentedHours = Activities
+                .Where(a => a.Type != ActivityType.BREAK)
+                .Sum(a => a.Duration.TotalHours)
+                .ToString("F1");
         }
 
         #endregion
@@ -138,9 +168,8 @@ namespace ActivityTracker.ViewModels
 
         private void ExecuteAddActivity()
         {
-            TimeSpan duration = GetDurationAndUpdateTimeStamp();
-
-            Activities.Add(new ActivityModel(_TimeStamp, this.Text, duration));
+            InsertActivity(this.Text);
+            RaisePropertyChanged(nameof(ActivitiesCache));
             DocumentedHours = Activities
                 .Where(a => a.Type != ActivityType.BREAK)
                 .Sum(a => a.Duration.TotalHours)
@@ -176,9 +205,8 @@ namespace ActivityTracker.ViewModels
 
         private TimeSpan GetDurationAndUpdateTimeStamp()
         {
-            DateTime now = DateTime.Now;
-
-            TimeSpan duration = now - _TimeStamp;
+            var now = DateTime.Now;
+            var duration = now - _TimeStamp;
 
             _TimeStamp = now;
 
@@ -191,6 +219,13 @@ namespace ActivityTracker.ViewModels
             SaveActivities.RaiseCanExecuteChanged();
         }
 
+        private void InsertActivity(string activityText)
+        {
+            var duration = GetDurationAndUpdateTimeStamp();
+
+            Activities.Add(new ActivityModel(_TimeStamp, activityText, duration));
+        }
+
         #endregion
 
         #region PROPERTIES
@@ -200,6 +235,14 @@ namespace ActivityTracker.ViewModels
         /// </summary>
         [EnsureMinimumElements(1, ErrorMessage = "Es muss mindestens eine Aktivität in der Liste vorhanden sein.")]
         public ObservableCollection<IActivityModel> Activities { get => _Activities; }
+
+        /// <summary>
+        /// <para>This property is a cache for distinct activity texts.</para>
+        /// </summary>
+        public IEnumerable<string> ActivitiesCache { get => _Activities
+                .Where(a => a.Type != ActivityType.BREAK)
+                .GroupBy(a => a.Text)
+                .Select(g => g.Key); }
 
         /// <summary>
         /// <see cref="IActivityModel.Text"/>
@@ -222,7 +265,6 @@ namespace ActivityTracker.ViewModels
         public string DocumentedHours
         {
             get => _DocumentedHours;
-
             set
             {
                 if (_DocumentedHours != value)

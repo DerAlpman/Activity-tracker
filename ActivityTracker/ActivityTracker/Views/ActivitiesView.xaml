@@ -41,6 +41,7 @@
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Delete Activity" Command="{Binding DeleteActivity, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" CommandParameter="{Binding SelectedRecord}" />
+                        <MenuItem Header="Duplicate Activity" Command="{Binding DuplicateActivity}" CommandParameter="{Binding SelectedRecord}" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>
