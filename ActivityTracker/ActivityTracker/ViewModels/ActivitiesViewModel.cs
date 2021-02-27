@@ -47,7 +47,7 @@ namespace ActivityTracker.ViewModels
         public DelegateCommand DeleteActivity { get; set; }
 
         /// <summary>
-        /// <para>A <see cref="DelegateCommand"/> to delete an activity.</para>
+        /// <para>A <see cref="DelegateCommand"/> to duplicate an activity.</para>
         /// </summary>
         public DelegateCommand DuplicateActivity { get; set; }
 
