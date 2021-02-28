@@ -6,12 +6,17 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  BuildConfig: Release
+  SolutionFile: ..\..\ActivityTracker\ActivityTracker.sln
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
     steps:
+    - run: echo HALLO STEFAN
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
@@ -20,6 +25,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build ..\..\ActivityTracker --no-restore
+      run: dotnet build --configuration ${{ env.BuildConfig}} --no-restore
     - name: Test
-      run: dotnet test ..\..\ActivityTracker --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal
