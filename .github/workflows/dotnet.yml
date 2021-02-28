@@ -8,7 +8,7 @@ on:
 
 env:
   BuildConfig: Release
-  SolutionFile: ..\..\ActivityTracker\ActivityTracker.sln
+  SolutionFile: ../../ActivityTracker\ActivityTracker.sln
 
 jobs:
   build:
