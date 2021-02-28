@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace StefanAlpers.ActivityTracker.CrossCutting.DataClasses
 {
     /// <summary>
-    /// <para>Describes the type of an <see cref="IActivityModel"/>.</para>
+    /// <para>Describes the type of an <see cref="Activity"/>.</para>
     /// </summary>
     public enum ActivityType
     {
         /// <summary>
-        /// <para>A break is an <see cref="IActivityModel"/> where work is done.</para>
+        /// <para>A break is an <see cref="Activity"/> where work is done.</para>
         /// </summary>
         WORK,
         /// <summary>
-        /// <para>A break is an <see cref="IActivityModel"/> where no work is done.</para>
+        /// <para>A break is an <see cref="Activity"/> where no work is done.</para>
         /// </summary>
         BREAK
     }
