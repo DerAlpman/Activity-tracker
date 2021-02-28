@@ -8,7 +8,6 @@ on:
 
 env:
   BuildConfig: Release
-  SolutionFile: ../ActivityTracker/ActivityTracker.sln
 
 jobs:
   build:
@@ -25,7 +24,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      working-directory: ./ActicityTracker
+      working-directory: ./ActivityTracker
       run: dotnet build --configuration ${{ env.BuildConfig }} --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
