@@ -1,14 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.271
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityTracker", "ActivityTracker\ActivityTracker.csproj", "{CB5D7AD1-161E-402A-9A8C-67D1A3321F38}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Components.ActivityTracker", "Components.ActivityTracker\Components.ActivityTracker.csproj", "{F237821D-CBE1-4479-8EE7-D8A429363FD0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityTrackerTests", "ActivityTrackerTests\ActivityTrackerTests.csproj", "{38B9AD66-7F75-4864-8AFB-DC3AE11E89EE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Documentation", "_Documentation", "{9A44062B-135A-4029-B84D-7C39CD01F7CE}"
 	ProjectSection(SolutionItems) = preProject
 		..\Documentation\docfx.json = ..\Documentation\docfx.json
@@ -29,24 +23,30 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "articles", "articles", "{21
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{D26AC98E-8C19-4B21-9D3E-423BCBA0FCCA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCutting", "CrossCutting", "{4B9844F4-3712-42D0-BCB7-5816D99C4535}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{DE77FD9A-67AF-4117-AE9B-09DED8DCDD52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logic", "Logic", "{8781BA85-64EA-4F6D-8A0D-75425103BEFE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataClasses", "CrossCutting\DataClasses\DataClasses.csproj", "{BCB933FD-BA96-44D9-952F-13CEF69A481B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActivityTrackerDesktop", "UI\ActivityTrackerDesktop\ActivityTrackerDesktop.csproj", "{B4AE0ED3-26AA-41D9-9E68-86031D54E161}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CB5D7AD1-161E-402A-9A8C-67D1A3321F38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CB5D7AD1-161E-402A-9A8C-67D1A3321F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CB5D7AD1-161E-402A-9A8C-67D1A3321F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CB5D7AD1-161E-402A-9A8C-67D1A3321F38}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F237821D-CBE1-4479-8EE7-D8A429363FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F237821D-CBE1-4479-8EE7-D8A429363FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F237821D-CBE1-4479-8EE7-D8A429363FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F237821D-CBE1-4479-8EE7-D8A429363FD0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38B9AD66-7F75-4864-8AFB-DC3AE11E89EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38B9AD66-7F75-4864-8AFB-DC3AE11E89EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38B9AD66-7F75-4864-8AFB-DC3AE11E89EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38B9AD66-7F75-4864-8AFB-DC3AE11E89EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCB933FD-BA96-44D9-952F-13CEF69A481B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCB933FD-BA96-44D9-952F-13CEF69A481B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCB933FD-BA96-44D9-952F-13CEF69A481B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCB933FD-BA96-44D9-952F-13CEF69A481B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4AE0ED3-26AA-41D9-9E68-86031D54E161}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4AE0ED3-26AA-41D9-9E68-86031D54E161}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4AE0ED3-26AA-41D9-9E68-86031D54E161}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4AE0ED3-26AA-41D9-9E68-86031D54E161}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +55,8 @@ Global
 		{1D96F705-F520-4CEA-8B88-B1FFE9E4950B} = {9A44062B-135A-4029-B84D-7C39CD01F7CE}
 		{214560B7-E62F-4EAF-B597-3B08987634B7} = {9A44062B-135A-4029-B84D-7C39CD01F7CE}
 		{D26AC98E-8C19-4B21-9D3E-423BCBA0FCCA} = {9A44062B-135A-4029-B84D-7C39CD01F7CE}
+		{BCB933FD-BA96-44D9-952F-13CEF69A481B} = {4B9844F4-3712-42D0-BCB7-5816D99C4535}
+		{B4AE0ED3-26AA-41D9-9E68-86031D54E161} = {DE77FD9A-67AF-4117-AE9B-09DED8DCDD52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D95285D7-C525-4BBB-AE86-54B1E5505ECC}

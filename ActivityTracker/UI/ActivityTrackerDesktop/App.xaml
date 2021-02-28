@@ -1,0 +1,11 @@
+﻿<Application x:Class="StefanAlpers.ActivityTracker.UI.ActivityTrackerDesktop.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:StefanAlpers.ActivityTracker.UI.ActivityTrackerDesktop.ViewModels"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <vm:ActivitiesViewModel x:Key="ActivitiesViewModel" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

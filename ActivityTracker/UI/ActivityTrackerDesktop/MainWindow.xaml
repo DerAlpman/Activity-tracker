@@ -1,0 +1,28 @@
+﻿<Window x:Class="StefanAlpers.ActivityTracker.UI.ActivityTrackerDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:StefanAlpers.ActivityTracker.UI.ActivityTrackerDesktop.Views"
+        mc:Ignorable="d"
+        Title="Track your activities!" Height="440" Width="400" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <controls:ActivityInputControlsView />
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <controls:ActivitiesView />
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <controls:ActivityTimerControlsView />
+        </Grid>
+    </Grid>
+</Window>

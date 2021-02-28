@@ -4,8 +4,7 @@
       "src": [
         {
           "files": [
-            "ActivityTracker/**.csproj",
-            "Components.ActivityTracker/*.csproj"
+            "**/*.csproj"
           ],
           "src": "../ActivityTracker"
         }

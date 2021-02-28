@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>StefanAlpers.ActivityTracker.UI.ActivityTrackerDesktop</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="tracker.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prism.Core" Version="8.0.0.1909" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CrossCutting\DataClasses\DataClasses.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="tracker.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="App.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="MainWindow.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ActivitiesView.xaml.cs">
+      <DependentUpon>ActivitiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ActivityInputControlsView.xaml.cs">
+      <DependentUpon>ActivityInputControlsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ActivityTimerControlsView.xaml.cs">
+      <DependentUpon>ActivityTimerControlsView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Views\ActivitiesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ActivityInputControlsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ActivityTimerControlsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="XamlStyles\StyleResourcesActivityInputControlsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>
