@@ -23,7 +23,6 @@ namespace ActivityTracker
         #endregion
 
         #region METHODS
-
         internal static bool TryWriteActivitiesToFile(IList<IActivityModel> activities)
         {
             if (!AppSettings.TryGetSetting(AppSettings.OUTPUT_PATH_KEY, out string filePath))
@@ -81,7 +80,6 @@ namespace ActivityTracker
 
             return Path.Combine(filePath, fileName + ".activities");
         }
-
         #endregion
     }
 }
