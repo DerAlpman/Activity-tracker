@@ -25,7 +25,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      working-directory: ./ActivityTracker
+      working-directory: ./ActicityTracker
       run: dotnet build --configuration ${{ env.BuildConfig }} --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
